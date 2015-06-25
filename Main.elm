@@ -2,24 +2,38 @@ import Graphics.Element exposing (..)
 import Graphics.Collage exposing (..)
 import Color exposing (..)
 import Mouse
+import Window
 
-player = {x=0.0, y=0.0}
+type alias Model =
+  { x : Float
+  , y : Float
+  }
+  
+spaceship : Model
+spaceship =
+  { x = 0
+  , y = 0
+  }
+
+spaceshipSprite : Shape
+spaceshipSprite =
+  ngon 3 20
 
 clearGrey : Color
 clearGrey =
   rgba 111 111 111 0.6
 
-draw : { x : Float, y : Float } -> Form
-draw spaceship =
-  ngon 3 75
+draw : Model -> (Int, Int) -> Form
+draw spaceship (x,y) =
+  spaceshipSprite
   |> filled clearGrey
-  |> move(spaceship.x,spaceship.y)
+  |> move(toFloat(x),toFloat(-y))
 
-scene : (Int, Int) -> Element
-scene (left,top) =
+scene : (Int, Int) -> (Int, Int) -> Element
+scene (left,top) shipPosition =
   collage left top
-    [ draw player ]
+    [ draw spaceship shipPosition]
 
 main : Signal Element
 main =
-  Signal.map scene Mouse.position
+  Signal.map2 scene Window.dimensions Mouse.position
