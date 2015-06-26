@@ -53,7 +53,7 @@ drawShip ship =
     dbg = Debug.watch "ship" ship
   in
     collage 300 300
-        [ ngon 3 20
+        [ spaceshipSprite
         |> filled clearGrey
         |> rotate (toDrawableAngle ship.angle) ]
           
