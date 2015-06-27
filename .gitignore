@@ -2,3 +2,5 @@ elm-stuff
 repl*
 elm.js
 build
+.divshot-cache
+divshot-debug.log
