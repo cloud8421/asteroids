@@ -36,34 +36,12 @@ spaceshipSprite : Form
 spaceshipSprite =
   outlined (solid white) (ngon 3 20)
            
--- updateVelocity : Float -> Int -> Float
--- updateVelocity old y =
---   if | y > 0     -> old + 1
---      | y < 0     -> old - 1
---      | otherwise -> old
-
--- updateX : Float -> Float -> Float -> Float
--- updateX x angle velocity =
---   x + velocity / 10 * (angle |> degrees |> cos)
-       
--- updateY : Float -> Float -> Float -> Float
--- updateY y angle velocity =
---   y + velocity / -10 * (angle |> degrees |> sin)
-
--- updatePosition : Model -> Float -> (Float, Float)
--- updatePosition ship velocity =
---   let
---     newX = (updateX ship.x ship.angle velocity)
---     newY = (updateY ship.y ship.angle velocity)
---   in
---     (newX, newY)
-
 updateThrust : Int -> Float -> Float
 updateThrust y old =
   case y of
-    1    -> 5
-    (-1) -> -5
-    0    -> old
+    1    -> 1 + old * 1.005
+    (-1) -> old * 0.5
+    0    -> old * 0.9
             
 updateX : Float -> Float -> Float -> Float
 updateX rotation thrust x =
@@ -75,8 +53,8 @@ updateY rotation thrust y =
     
 updateRotation rotation x =
   case x of
-    1    -> rotation - (degrees 3)
-    (-1) -> rotation + (degrees 3)
+    1    -> rotation - (degrees 6)
+    (-1) -> rotation + (degrees 6)
     0    -> rotation
 
 updateSpaceship : (Float, Keys) -> Model -> Model
