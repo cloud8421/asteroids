@@ -86,7 +86,7 @@ drawScene (w, h) ship =
 keyboardInput : Signal (Float, Keys)
 keyboardInput =
   let
-    delta = Signal.map (\t -> t/2) (fps 10)
+    delta = Signal.map (\t -> t/2) (fps 30)
   in
     Signal.sampleOn delta (Signal.map2 (,) delta Keyboard.arrows)
 
